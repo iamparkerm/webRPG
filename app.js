@@ -17,9 +17,26 @@ function appendMessage(text, className = "") {
   transcript.scrollTop = transcript.scrollHeight;
 }
 
+function renderStats() {
+  const player = game.player;
+  document.getElementById("player-stats").hidden = !player.name;
+  document.getElementById("player-name").textContent = player.name;
+  document.getElementById("knowledge").textContent = `${player.knowledge}/${player.knowledge_max}`;
+  document.getElementById("specials").textContent = player.special_charges;
+  document.getElementById("books").textContent = player.books;
+
+  const opponent = document.getElementById("opponent");
+  const enemy = player.enemy;
+  opponent.hidden = game.phase !== "combat" && game.phase !== "boss_combat";
+  opponent.textContent = opponent.hidden ? "" : `Opponent: ${enemy.name} · Knowledge ${enemy.knowledge}`;
+  if (enemy) enemy.destroy();
+  player.destroy(); // Release the temporary Python references used for display.
+}
+
 function render(messages) {
   for (const message of messages.toJs()) appendMessage(message);
   messages.destroy(); // Release this temporary Python list after displaying it.
+  renderStats();
   prompt.textContent = game.finished ? "Session ended. Choose Restart to play again." : game.prompt;
   command.disabled = send.disabled = game.finished;
   command.placeholder = game.phase.endsWith("selection") ? "Type a number…" : "Try help or explore…";
@@ -34,6 +51,7 @@ function render(messages) {
     actions.append(button);
   }
   choices.destroy();
+  transcript.scrollTop = transcript.scrollHeight; // Stats and buttons can change the available height.
   if (game.finished) restart.focus();
   else actions.querySelector("button").focus({ preventScroll: true });
 }

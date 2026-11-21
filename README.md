@@ -23,6 +23,10 @@ commands, expand **Type a command instead**. First-letter shortcuts work;
 `u` or `use special` uses a special attack. Library choices also use 1–5, or 0 to
 leave. Restart or reloading the page begins a new game. There are no saves yet.
 
+After character selection, a compact panel shows knowledge, special charges, and
+book count. During combat it also shows the opponent and their current knowledge.
+It updates after each action without adding a progression meter or changing rules.
+
 The terminal version still works with `python main.py`.
 
 ## Read the code

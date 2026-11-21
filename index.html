@@ -20,6 +20,15 @@
       <button id="restart" type="button" disabled>Restart</button>
     </header>
     <p id="status" role="status">Loading game…</p>
+    <section id="player-stats" aria-label="Player stats" hidden>
+      <strong id="player-name"></strong>
+      <dl>
+        <div><dt>Knowledge</dt><dd id="knowledge"></dd></div>
+        <div><dt>Specials</dt><dd id="specials"></dd></div>
+        <div><dt>Books</dt><dd id="books"></dd></div>
+      </dl>
+      <p id="opponent" hidden></p>
+    </section>
     <section id="transcript" role="log" aria-label="Game transcript" aria-live="polite" tabindex="0">
       <p class="muted">The first launch may take a moment.</p>
     </section>
