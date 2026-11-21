@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Owl Town RPG: the original Python text adventure, playable in your browser.">
+  <title>Owl Town RPG</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/pyodide.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>Owl Town <span>RPG</span></h1>
+        <p class="muted">A campus text adventure.</p>
+      </div>
+      <button id="restart" type="button" disabled>Restart</button>
+    </header>
+    <p id="status" role="status">Loading game…</p>
+    <section id="transcript" role="log" aria-label="Game transcript" aria-live="polite" tabindex="0">
+      <p class="muted">The first launch may take a moment.</p>
+    </section>
+    <form id="command-form">
+      <label id="prompt" for="command">Command</label>
+      <input id="command" name="command" placeholder="Waiting for the game…" autocomplete="off" autocapitalize="off" spellcheck="false" disabled>
+      <button id="send" type="submit" disabled>Send</button>
+    </form>
+    <footer>
+      <span>Type a command and press Enter. No saves yet.</span>
+      <a href="https://github.com/iamparkerm/pythonRPG" target="_blank" rel="noreferrer">Original Python game</a>
+    </footer>
+    <noscript>This game needs JavaScript enabled to run Python in your browser.</noscript>
+  </main>
+</body>
+</html>
