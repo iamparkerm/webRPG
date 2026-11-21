@@ -23,13 +23,20 @@
     <section id="transcript" role="log" aria-label="Game transcript" aria-live="polite" tabindex="0">
       <p class="muted">The first launch may take a moment.</p>
     </section>
-    <form id="command-form">
-      <label id="prompt" for="command">Command</label>
-      <input id="command" name="command" placeholder="Waiting for the game…" autocomplete="off" autocapitalize="off" spellcheck="false" disabled>
-      <button id="send" type="submit" disabled>Send</button>
-    </form>
+    <div>
+      <p id="prompt">Loading controls…</p>
+      <div id="actions" role="group" aria-labelledby="prompt"></div>
+    </div>
+    <details id="typing">
+      <summary>Type a command instead</summary>
+      <form id="command-form">
+        <label for="command">Command</label>
+        <input id="command" name="command" placeholder="Waiting for the game…" autocomplete="off" autocapitalize="off" spellcheck="false" disabled>
+        <button id="send" type="submit" disabled>Send</button>
+      </form>
+    </details>
     <footer>
-      <span>Type a command and press Enter. No saves yet.</span>
+      <span>Tap to play. No saves yet.</span>
       <a href="https://github.com/iamparkerm/pythonRPG" target="_blank" rel="noreferrer">Original Python game</a>
     </footer>
     <noscript>This game needs JavaScript enabled to run Python in your browser.</noscript>

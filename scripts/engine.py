@@ -22,6 +22,26 @@ class Game:
             return 'Book choice ='
         return 'What would you like to do? > '
 
+    @property
+    def choices(self):
+        """Commands and labels for the browser's tap buttons."""
+        if self.finished:
+            return []
+        if self.phase == 'character_selection':
+            return [(key[1:], character[0]) for key, character in PlayerDict.items()]
+        if self.phase == 'book_selection':
+            return [('1', 'Carl Sagan'), ('2', 'Kurt Vonnegut'),
+                    ('3', 'David Deutsch'), ('4', 'Sam Harris'),
+                    ('5', 'Richard Feynman'), ('0', 'Leave library')]
+        if self.phase in ('combat', 'boss_combat'):
+            actions = [('argue', 'Argue'),
+                       ('use special', 'Special ({})'.format(self.player.special_charges)),
+                       ('flee', 'Flee')]
+        else:
+            actions = [('explore', 'Explore'), ('read', 'Read')]
+        return actions + [('stats', 'Stats'), ('backpack', 'Backpack'),
+                          ('help', 'Help'), ('quit', 'Quit')]
+
     def start(self):
         return [
             "Oh, hello, I didn't see you there. You look smart as shit. I bet you're from Owl Town and"
@@ -108,7 +128,8 @@ class Game:
                 self.player.name, self.player.name),
             "Hi, this is ReKrap, and thanks for playing. I know we had a lot of fun today, but its important to remember "
             "that knowledge is half the battle thumbs up emoji",
-            'developer - ReKrap',
+            'developer - ReKrap © 2018',
+            'ported to web by Codex 2026',
             'writer - ReKrap',
             'THE END',
             "P.S. There's a potential Donkey Kong kill screen coming up if anyone is interested.",

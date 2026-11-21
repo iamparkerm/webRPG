@@ -5,6 +5,7 @@ const prompt = document.getElementById("prompt");
 const send = document.getElementById("send");
 const restart = document.getElementById("restart");
 const gameStatus = document.getElementById("status");
+const actions = document.getElementById("actions");
 let Game;
 let game;
 
@@ -23,8 +24,18 @@ function render(messages) {
   command.disabled = send.disabled = game.finished;
   command.placeholder = game.phase.endsWith("selection") ? "Type a number…" : "Try help or explore…";
   gameStatus.textContent = game.finished ? "Game ended" : "Ready to play";
+  actions.replaceChildren();
+  const choices = game.choices;
+  for (const [value, label] of choices.toJs()) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = label;
+    button.addEventListener("click", () => submitCommand(value));
+    actions.append(button);
+  }
+  choices.destroy();
   if (game.finished) restart.focus();
-  else command.focus();
+  else actions.querySelector("button").focus({ preventScroll: true });
 }
 
 function newGame() {
@@ -32,16 +43,22 @@ function newGame() {
   game = Game();
   transcript.replaceChildren();
   command.value = "";
+  document.getElementById("typing").open = false;
   render(game.start());
+}
+
+function submitCommand(text) {
+  appendMessage("> " + text, "command");
+  command.value = "";
+  render(game.submit(text)); // Pass text as data, never as Python source code.
 }
 
 document.getElementById("command-form").addEventListener("submit", (event) => {
   event.preventDefault();
   const text = command.value.trim();
   if (!text || command.disabled) return;
-  appendMessage("> " + text, "command");
-  command.value = "";
-  render(game.submit(text)); // Pass text as data, never as Python source code.
+  submitCommand(text);
+  if (!game.finished) command.focus(); // Only deliberate typing opens the phone keyboard.
 });
 
 restart.addEventListener("click", () => {
