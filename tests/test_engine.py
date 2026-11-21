@@ -117,6 +117,23 @@ class GameTests(unittest.TestCase):
         self.assertIn('THE END', game.submit('u'))
         self.assertTrue(game.finished)
 
+    def test_tap_choices_follow_the_game_phase(self):
+        game = Game()
+        self.assertIn(('5', 'Parker'), game.choices)
+        game.submit('5')
+        self.assertIn(('explore', 'Explore'), game.choices)
+        self.assertNotIn('argue', dict(game.choices))
+        with patch.object(game.player.rng, 'randint', side_effect=[0, 0, 1]):
+            game.submit('e')
+        self.assertIn(('1', 'Carl Sagan'), game.choices)
+        game.submit('1')
+        with patch.object(game.player.rng, 'randint', side_effect=[1, 1]):
+            game.submit('e')
+        self.assertIn(('argue', 'Argue'), game.choices)
+        self.assertNotIn('explore', dict(game.choices))
+        game.submit('q')
+        self.assertEqual(game.choices, [])
+
 
 if __name__ == '__main__':
     unittest.main()

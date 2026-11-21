@@ -11,7 +11,8 @@ body { margin: 0; }
 
 main {
   max-width: 1000px;
-  height: 100svh;
+  height: 100dvh;
+  min-height: 560px;
   margin: auto;
   padding: clamp(16px, 3vw, 32px);
   display: flex;
@@ -46,6 +47,11 @@ p { margin: 0; }
 #transcript p { white-space: pre-wrap; margin-bottom: 16px; }
 #transcript p:last-child { margin-bottom: 0; }
 #transcript .command { color: #b4d78e; }
+
+#prompt { margin-bottom: 10px; }
+#actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+summary { cursor: pointer; min-height: 44px; padding: 10px 0; color: #a5b4ac; }
+details[open] summary { margin-bottom: 8px; }
 
 form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; }
 label { grid-column: 1 / -1; }
